@@ -1,0 +1,232 @@
+/* =========================================================================
+   Tokens de design — Instituto Shirley Nogueira
+   Fonte de verdade: DESIGN-SPEC.md §04 (tipografia) e §05 (paleta).
+   ========================================================================= */
+
+:root {
+  /* --- Paleta oficial (DESIGN-SPEC §05) --------------------------------- */
+  --cor-creme: #f5eadd;
+  --cor-marrom: #3c2e23;
+  --cor-dourado: #d0a568;
+  --cor-taupe: #b7a084;
+  --cor-marrom-medio: #6b513c;
+  --cor-branco: #fafafa;
+  --cor-preto: #000006;
+
+  /* --- Papéis semânticos -----------------------------------------------
+     O dourado é acento, nunca cor de texto corrido: #D0A568 sobre #F5EADD
+     não atinge contraste suficiente para corpo de texto. Texto usa marrom.  */
+  --fundo: var(--cor-creme);
+  --fundo-alt: var(--cor-branco);
+  --fundo-escuro: var(--cor-marrom);
+  --texto: var(--cor-marrom);
+  --texto-suave: var(--cor-marrom-medio);
+  --texto-invertido: var(--cor-branco);
+  --texto-invertido-suave: #d8cec3;
+  --acento: var(--cor-dourado);
+  --linha: rgba(60, 46, 35, 0.14);
+  --linha-forte: rgba(60, 46, 35, 0.28);
+  --linha-clara: rgba(250, 250, 250, 0.18);
+
+  /* --- Tipografia -------------------------------------------------------
+     Antonio: títulos, números, nomes de tecnologias, elementos editoriais.
+     Montserrat: texto, navegação, botões, labels.                          */
+  --fonte-titulo: var(--font-antonio), 'Arial Narrow', sans-serif;
+  --fonte-texto: var(--font-montserrat), system-ui, -apple-system, sans-serif;
+
+  --passo--2: clamp(0.69rem, 0.67rem + 0.11vw, 0.75rem);
+  --passo--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.91rem);
+  --passo-0: clamp(1rem, 0.96rem + 0.2vw, 1.13rem);
+  --passo-1: clamp(1.2rem, 1.14rem + 0.29vw, 1.38rem);
+  --passo-2: clamp(1.44rem, 1.35rem + 0.43vw, 1.71rem);
+  --passo-3: clamp(1.73rem, 1.59rem + 0.65vw, 2.13rem);
+  --passo-4: clamp(2.07rem, 1.88rem + 0.96vw, 2.66rem);
+  --passo-5: clamp(2.49rem, 2.2rem + 1.4vw, 3.32rem);
+  --passo-6: clamp(2.99rem, 2.58rem + 2.02vw, 4.14rem);
+  --passo-7: clamp(3.58rem, 3.01rem + 2.87vw, 5.17rem);
+
+  --rastreio-label: 0.22em;
+  --rastreio-titulo: -0.01em;
+
+  /* --- Espaçamento (escala 4px) ----------------------------------------- */
+  --esp-3xs: 0.25rem;
+  --esp-2xs: 0.5rem;
+  --esp-xs: 0.75rem;
+  --esp-s: 1rem;
+  --esp-m: 1.5rem;
+  --esp-l: 2rem;
+  --esp-xl: 3rem;
+  --esp-2xl: 4rem;
+  --esp-3xl: 6rem;
+  --esp-4xl: 8rem;
+
+  /* Respiro vertical entre seções — o espaço negativo é o principal recurso
+     premium do projeto (DESIGN-SPEC §06). */
+  --secao-y: clamp(5rem, 3.2rem + 8vw, 9.5rem);
+
+  /* --- Layout ----------------------------------------------------------- */
+  --largura-max: 1280px;
+  --largura-texto: 62ch;
+  --margem-lateral: clamp(1.25rem, 0.6rem + 3.2vw, 4rem);
+
+  /* --- Bordas e sombras -------------------------------------------------
+     Raios contidos e sombras discretas: nada de glassmorphism ou sombra
+     pesada (DESIGN-SPEC §06).                                              */
+  --raio-s: 2px;
+  --raio-m: 4px;
+  --raio-l: 8px;
+  --sombra-card: 0 18px 48px -28px rgba(60, 46, 35, 0.42);
+  --sombra-flutuante: 0 28px 64px -32px rgba(60, 46, 35, 0.5);
+
+  /* --- Movimento -------------------------------------------------------- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-rapida: 240ms;
+  --dur-media: 420ms;
+  --dur-lenta: 640ms;
+}
+
+/* =========================================================================
+   Reset
+   ========================================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Compensa o header fixo quando um link âncora leva a uma seção. */
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background-color: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte-texto);
+  font-size: var(--passo-0);
+  line-height: 1.65;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--fonte-titulo);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: var(--rastreio-titulo);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* =========================================================================
+   Acessibilidade
+   ========================================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 3px;
+  border-radius: var(--raio-s);
+}
+
+/* Foco sobre fundo escuro precisa de um anel claro para manter contraste. */
+.sobreEscuro :focus-visible {
+  outline-color: var(--cor-branco);
+}
+
+.pularParaConteudo {
+  position: absolute;
+  left: var(--esp-s);
+  top: var(--esp-s);
+  z-index: 200;
+  padding: var(--esp-2xs) var(--esp-s);
+  background: var(--fundo-escuro);
+  color: var(--texto-invertido);
+  font-size: var(--passo--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: var(--raio-m);
+  transform: translateY(calc(-100% - var(--esp-l)));
+  transition: transform var(--dur-rapida) var(--ease);
+}
+
+.pularParaConteudo:focus-visible {
+  transform: translateY(0);
+}
+
+.apenasLeitorDeTela {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =========================================================================
+   Movimento reduzido (DESIGN-SPEC §19)
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
