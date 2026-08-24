@@ -1,0 +1,176 @@
+.contato {
+  padding-block: var(--secao-y);
+  background-color: var(--cor-branco);
+}
+
+.interno {
+  max-width: var(--largura-max);
+  margin-inline: auto;
+  padding-inline: var(--margem-lateral);
+  display: grid;
+  gap: var(--esp-2xl);
+  align-items: start;
+}
+
+/* --- Coluna de texto ----------------------------------------------------- */
+
+.texto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-l);
+}
+
+.titulo {
+  margin-top: var(--esp-s);
+  font-size: var(--passo-6);
+  color: var(--cor-marrom);
+}
+
+.chamada {
+  margin-top: var(--esp-s);
+  max-width: 46ch;
+  color: var(--texto-suave);
+}
+
+/* --- Informações --------------------------------------------------------- */
+
+.informacoes {
+  display: grid;
+  gap: var(--esp-2xs);
+  margin: 0;
+}
+
+.info {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--esp-s);
+  padding: var(--esp-s);
+  margin-inline: calc(var(--esp-s) * -1);
+  border-radius: var(--raio-l);
+  transition: background-color var(--dur-rapida) var(--ease);
+}
+
+.info:hover {
+  background-color: var(--fundo);
+}
+
+.infoIcone {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--linha);
+  border-radius: 50%;
+  color: var(--acento);
+  transition:
+    border-color var(--dur-rapida) var(--ease),
+    background-color var(--dur-rapida) var(--ease);
+}
+
+.info:hover .infoIcone {
+  border-color: var(--acento);
+  background-color: var(--cor-branco);
+}
+
+.infoCorpo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.infoRotulo {
+  font-size: var(--passo--2);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+  margin-bottom: var(--esp-3xs);
+}
+
+.infoLinha {
+  font-size: var(--passo-0);
+  line-height: 1.45;
+  color: var(--texto);
+}
+
+/* A primeira linha de cada bloco é o dado principal. */
+.infoLinha:first-of-type {
+  font-weight: 500;
+}
+
+.infoAcao {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-top: var(--esp-2xs);
+  padding-bottom: 1px;
+  border-bottom: 1px solid transparent;
+  font-size: var(--passo--2);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+  transition:
+    color var(--dur-rapida) var(--ease),
+    border-color var(--dur-rapida) var(--ease);
+}
+
+.info:hover .infoAcao {
+  color: var(--cor-marrom);
+  border-bottom-color: var(--acento);
+}
+
+/* --- Fotografia e encerramento ------------------------------------------- */
+
+.midia {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-m);
+}
+
+.moldura {
+  overflow: hidden;
+  border-radius: var(--raio-l);
+  background-color: var(--fundo);
+}
+
+.foto {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.encerramento {
+  max-width: 34ch;
+  padding-left: var(--esp-m);
+  border-left: 1px solid var(--acento);
+  font-family: var(--fonte-titulo);
+  font-size: var(--passo-2);
+  line-height: 1.2;
+  color: var(--cor-marrom);
+}
+
+/* --- Mobile -------------------------------------------------------------- */
+
+@media (max-width: 61.99rem) {
+  .titulo {
+    font-size: var(--passo-5);
+  }
+
+  .midia {
+    max-width: 24rem;
+  }
+}
+
+/* --- Desktop ------------------------------------------------------------- */
+
+@media (min-width: 62rem) {
+  .interno {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr);
+    gap: var(--esp-3xl);
+  }
+
+  .midia {
+    /* Alinha o topo da fotografia com a primeira informação, não com o título. */
+    margin-top: var(--esp-2xl);
+  }
+}
