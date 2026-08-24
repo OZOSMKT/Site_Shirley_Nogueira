@@ -46,7 +46,7 @@
 
 .midia {
   grid-area: midia;
-  align-self: start;
+  min-height: 0;
 }
 
 .foto {
@@ -63,6 +63,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--esp-l);
+  min-height: 0;
 }
 
 .chamada {
@@ -72,10 +73,20 @@
   color: var(--texto-invertido);
 }
 
+/* Sempre 1 ou 2 colunas — com 4 pilares, três colunas deixariam o último
+   órfão numa linha sozinha. */
 .pilares {
   display: grid;
+  grid-template-columns: 1fr;
   gap: var(--esp-m);
   margin: 0;
+}
+
+@media (min-width: 34rem) {
+  .pilares {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--esp-l) var(--esp-m);
+  }
 }
 
 .pilar {
@@ -121,44 +132,38 @@
   .midia {
     max-width: 22rem;
   }
-
-  .pilares {
-    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
-  }
 }
 
-/* --- Desktop: assimetria com a foto subindo ao lado da headline ---------- */
+/* --- Desktop: headline no topo, foto e texto alinhados topo e base --------
+ *
+ * A linha de baixo usa `align-items: stretch`: a coluna da fotografia e a do
+ * texto passam a ter exatamente a mesma altura, definida pelo bloco mais alto.
+ * A foto preenche essa altura com `cover`, então as duas colunas fecham
+ * alinhadas em cima e embaixo, sem sobra de espaço vazio em nenhuma das duas.
+ */
 
 @media (min-width: 62rem) {
   .interno {
-    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr);
     grid-template-areas:
       'cabecalho cabecalho'
       'midia corpo';
     column-gap: var(--esp-3xl);
-    row-gap: 0;
+    row-gap: var(--esp-xl);
+    align-items: stretch;
   }
 
-  /*
-   * A headline recua até depois da coluna da fotografia. Assim a foto pode
-   * subir bastante e ocupar o mesmo campo vertical da palavra — a sobreposição
-   * acontece por camada e vizinhança, sem que a imagem cubra as letras.
-   */
-  .cabecalho {
-    padding-left: 36%;
+  .foto {
+    height: 100%;
+    /* A Dra. Shirley ocupa a metade inferior da fotografia; ancorar o corte
+       abaixo do centro preserva a figura e a parede de certificações. */
+    object-position: center 42%;
   }
 
-  .midia {
-    margin-top: clamp(-13rem, -7vw - 5rem, -7rem);
-    max-width: 25rem;
-  }
-
+  /* Distribui os blocos de texto por toda a altura da coluna, para que o
+     último pilar termine na mesma linha da base da fotografia. */
   .corpo {
-    padding-top: var(--esp-l);
-  }
-
-  .pilares {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--esp-l) var(--esp-m);
+    justify-content: space-between;
+    gap: var(--esp-xl);
   }
 }
