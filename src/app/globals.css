@@ -60,9 +60,10 @@
   --esp-3xl: 6rem;
   --esp-4xl: 8rem;
 
-  /* Respiro vertical entre seções — o espaço negativo é o principal recurso
-     premium do projeto (DESIGN-SPEC §06). */
-  --secao-y: clamp(5rem, 3.2rem + 8vw, 9.5rem);
+  /* Respiro vertical entre seções. O espaço negativo continua sendo o principal
+     recurso do projeto (DESIGN-SPEC §06), mas em ritmo mais próximo — o valor
+     anterior abria demais a leitura entre um bloco e o seguinte. */
+  --secao-y: clamp(3.5rem, 2.4rem + 5.5vw, 7rem);
 
   /* --- Layout ----------------------------------------------------------- */
   --largura-max: 1280px;
