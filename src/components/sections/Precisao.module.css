@@ -1,0 +1,123 @@
+.precisao {
+  position: relative;
+  background-color: var(--cor-marrom);
+  color: var(--texto-invertido);
+  padding-bottom: var(--secao-y);
+}
+
+/* --- Faixa da fotografia ------------------------------------------------- */
+
+.faixaFoto {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1079 / 609;
+  max-height: 62vh;
+  overflow: hidden;
+}
+
+.foto {
+  object-fit: cover;
+  /* A Dra. Shirley está no eixo central da fotografia. */
+  object-position: center 32%;
+}
+
+/* Fusão curta com o marrom na base, para a foto não terminar em corte seco. */
+.fusao {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 34%;
+  background: linear-gradient(to bottom, transparent, rgba(60, 46, 35, 0.55) 55%, var(--cor-marrom) 100%);
+}
+
+/* --- Divisão central ----------------------------------------------------- */
+
+.divisao {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--esp-m);
+  width: min(100% - 2 * var(--margem-lateral), 34rem);
+  margin-inline: auto;
+  /* Puxa o símbolo para cima da linha entre fotografia e texto. */
+  margin-top: -1.75rem;
+}
+
+.filete {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(208, 165, 104, 0.75), transparent);
+}
+
+.simbolo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  padding-inline: var(--esp-s);
+}
+
+/* --- Conteúdo ------------------------------------------------------------ */
+
+.interno {
+  max-width: var(--largura-max);
+  margin-inline: auto;
+  padding: var(--esp-xl) var(--margem-lateral) 0;
+}
+
+.conteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 46rem;
+  margin-inline: auto;
+}
+
+.titulo {
+  font-size: var(--passo-7);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--texto-invertido);
+  line-height: 1;
+  /* Compensa o rastreio, que desloca o bloco para a esquerda. */
+  text-indent: 0.16em;
+}
+
+.subtitulo {
+  margin-top: var(--esp-xs);
+  font-family: var(--fonte-titulo);
+  font-size: var(--passo-3);
+  letter-spacing: 0.02em;
+  color: var(--acento);
+  line-height: 1.1;
+}
+
+.texto {
+  margin-top: var(--esp-m);
+  max-width: 54ch;
+  font-size: var(--passo-0);
+  color: var(--texto-invertido-suave);
+}
+
+/* --- Mobile -------------------------------------------------------------- */
+
+@media (max-width: 47.99rem) {
+  .faixaFoto {
+    /* Em telas estreitas a landscape fica baixa demais; um recorte mais alto
+       preserva a leitura da figura e do gesto. */
+    aspect-ratio: 4 / 3;
+    max-height: 46vh;
+  }
+
+  .foto {
+    object-position: 52% 28%;
+  }
+
+  .titulo {
+    font-size: var(--passo-6);
+  }
+
+  .divisao {
+    gap: var(--esp-s);
+  }
+}
