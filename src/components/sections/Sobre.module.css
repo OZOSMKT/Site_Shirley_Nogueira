@@ -1,0 +1,149 @@
+.sobre {
+  padding-block: var(--secao-y);
+  background-color: var(--fundo);
+}
+
+.interno {
+  max-width: var(--largura-max);
+  margin-inline: auto;
+  padding-inline: var(--margem-lateral);
+  display: grid;
+  gap: var(--esp-2xl);
+  align-items: start;
+}
+
+/* --- Fotografia + card sobreposto ---------------------------------------- */
+
+/*
+ * A fotografia original tem 377x538. Acima de ~430px de largura ela passaria a
+ * ser ampliada além do seu tamanho nativo, o que degrada a imagem e desequilibra
+ * a composição em tablets. O teto vale para todos os tamanhos de tela.
+ */
+.midia {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  margin-inline: auto;
+  /* Reserva o avanço do card para fora da moldura. */
+  padding-bottom: var(--esp-2xl);
+}
+
+.moldura {
+  overflow: hidden;
+  border-radius: var(--raio-l);
+  background-color: var(--cor-branco);
+}
+
+.foto {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.card {
+  position: absolute;
+  left: var(--esp-m);
+  right: var(--esp-m);
+  bottom: 0;
+  padding: var(--esp-m) var(--esp-l);
+  background-color: var(--cor-creme);
+  border: 1px solid var(--linha);
+  border-radius: var(--raio-l);
+  box-shadow: var(--sombra-card);
+}
+
+.metricas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--esp-s);
+  margin: 0;
+}
+
+/* Filetes finos separando as métricas, em vez de bordas de card. */
+.metricas > li + li {
+  padding-left: var(--esp-s);
+  border-left: 1px solid var(--linha);
+}
+
+/* --- Coluna de texto ----------------------------------------------------- */
+
+.texto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--esp-m);
+}
+
+.titulo {
+  margin-top: var(--esp-s);
+  font-size: var(--passo-6);
+  color: var(--cor-marrom);
+}
+
+/* Contraste Antonio + Montserrat dentro da mesma headline (DESIGN-SPEC §04). */
+.tituloLeve {
+  font-family: var(--fonte-texto);
+  font-size: 0.42em;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+  vertical-align: middle;
+}
+
+.tituloForte {
+  display: inline;
+}
+
+.paragrafo {
+  max-width: var(--largura-texto);
+  color: var(--texto-suave);
+}
+
+.acoes {
+  margin-top: var(--esp-2xs);
+}
+
+/* --- Mobile -------------------------------------------------------------- */
+
+@media (max-width: 47.99rem) {
+  .card {
+    left: var(--esp-s);
+    right: var(--esp-s);
+    padding: var(--esp-s) var(--esp-m);
+  }
+
+  .metricas {
+    gap: var(--esp-2xs);
+  }
+
+  .metricas > li + li {
+    padding-left: var(--esp-2xs);
+  }
+
+  .titulo {
+    font-size: var(--passo-5);
+  }
+}
+
+/* --- Desktop ------------------------------------------------------------- */
+
+@media (min-width: 62rem) {
+  .interno {
+    grid-template-columns: minmax(0, 0.82fr) 1fr;
+    gap: var(--esp-3xl);
+    align-items: center;
+  }
+
+  .midia {
+    margin-inline: 0;
+    padding-bottom: var(--esp-3xl);
+  }
+
+  /* O card avança para fora da foto pela direita, criando a sobreposição. */
+  .card {
+    left: var(--esp-2xl);
+    right: calc(var(--esp-2xl) * -1);
+    max-width: 420px;
+  }
+}
