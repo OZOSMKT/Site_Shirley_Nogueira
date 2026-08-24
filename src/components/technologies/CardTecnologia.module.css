@@ -1,0 +1,205 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Altura fixa: a expansão redistribui espaço internamente, ela não empurra o
+     card nem desloca os vizinhos do carrossel. */
+  height: clamp(30rem, 20rem + 16vw, 36rem);
+  padding: var(--esp-m);
+  background-color: var(--cor-branco);
+  border: 1px solid var(--linha);
+  border-radius: var(--raio-l);
+  overflow: hidden;
+  user-select: none;
+  transition:
+    border-color var(--dur-media) var(--ease),
+    box-shadow var(--dur-media) var(--ease),
+    background-color var(--dur-media) var(--ease);
+}
+
+.expandido {
+  border-color: var(--linha-forte);
+  box-shadow: var(--sombra-card);
+}
+
+/* --- Topo ---------------------------------------------------------------- */
+
+.topo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--esp-s);
+}
+
+/*
+ * O número e o selo usam marrom, não dourado nem taupe.
+ * Sobre o branco do card, #D0A568 fica em 2,17:1 e #B7A084 em 2,40:1 — ambos
+ * abaixo do mínimo do WCAG mesmo para texto grande. O dourado permanece como
+ * acento em elementos não textuais (filetes, bordas) e sobre o marrom escuro,
+ * onde o contraste é suficiente.
+ */
+.numero {
+  font-family: var(--fonte-titulo);
+  font-size: var(--passo-3);
+  line-height: 1;
+  color: var(--texto-suave);
+  transition: color var(--dur-media) var(--ease);
+}
+
+.expandido .numero {
+  color: var(--cor-marrom);
+}
+
+/* Filete dourado sob o número: é ele que carrega o acento na expansão. */
+.numero::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 1px;
+  margin-top: 0.25em;
+  background-color: var(--acento);
+  transition: width var(--dur-lenta) var(--ease);
+}
+
+.expandido .numero::after {
+  width: 100%;
+}
+
+.selo {
+  font-size: var(--passo--2);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+}
+
+/* --- Palco do equipamento ------------------------------------------------ */
+
+/*
+ * O palco cede altura para o bloco revelado, mas nunca abaixo deste piso — sem
+ * ele o equipamento vira uma miniatura na expansão e perde o peso visual que a
+ * escala individual construiu.
+ */
+.palco {
+  position: relative;
+  flex: 1;
+  min-height: 42%;
+  margin-block: var(--esp-s);
+  transition: min-height var(--dur-lenta) var(--ease);
+}
+
+.expandido .palco {
+  min-height: 20%;
+}
+
+/* Base sutil sob o equipamento: dá assentamento sem virar sombra pesada. */
+.palco::after {
+  content: '';
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 4%;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(60, 46, 35, 0.16), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--dur-lenta) var(--ease);
+}
+
+.expandido .palco::after {
+  opacity: 1;
+}
+
+.equipamento {
+  object-fit: contain;
+  object-position: center bottom;
+  transform-origin: center bottom;
+  /* A transição cobre a escala individual definida em data/tecnologias.ts. */
+  transition: transform var(--dur-lenta) var(--ease);
+}
+
+/* --- Base ---------------------------------------------------------------- */
+
+.base {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-3xs);
+}
+
+.nome {
+  font-size: var(--passo-2);
+  line-height: 1.05;
+  color: var(--cor-marrom);
+}
+
+.resumo {
+  font-size: var(--passo--1);
+  letter-spacing: 0.02em;
+  color: var(--texto-suave);
+}
+
+/*
+ * Bloco revelado. `grid-template-rows: 0fr → 1fr` anima a altura sem precisar
+ * de valor fixo, e o conteúdo permanece no DOM o tempo todo — apenas contido.
+ */
+.extra {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-lenta) var(--ease);
+}
+
+.expandido .extra {
+  grid-template-rows: 1fr;
+}
+
+.extraInterno {
+  overflow: hidden;
+  min-height: 0;
+  opacity: 0;
+  transition: opacity var(--dur-media) var(--ease);
+}
+
+.expandido .extraInterno {
+  opacity: 1;
+  transition-delay: 100ms;
+}
+
+.descricao {
+  margin-top: var(--esp-2xs);
+  padding-top: var(--esp-2xs);
+  border-top: 1px solid var(--linha);
+  font-size: var(--passo--1);
+  line-height: 1.5;
+  color: var(--texto-suave);
+}
+
+.saibaMais {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-2xs);
+  margin-top: var(--esp-xs);
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--linha-forte);
+  font-size: var(--passo--2);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--texto);
+  transition:
+    color var(--dur-rapida) var(--ease),
+    border-color var(--dur-rapida) var(--ease);
+}
+
+.saibaMais:hover {
+  color: var(--cor-marrom-medio);
+  border-bottom-color: var(--acento);
+}
+
+/* Sem movimento: a revelação continua funcionando, apenas sem animar. */
+@media (prefers-reduced-motion: reduce) {
+  .extra,
+  .extraInterno,
+  .equipamento,
+  .palco::after {
+    transition: none;
+  }
+}

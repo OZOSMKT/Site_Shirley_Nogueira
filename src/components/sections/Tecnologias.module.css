@@ -1,0 +1,80 @@
+.tecnologias {
+  padding-block: var(--secao-y);
+  background-color: var(--fundo);
+  overflow: hidden;
+}
+
+.interno {
+  max-width: var(--largura-max);
+  margin-inline: auto;
+  padding-inline: var(--margem-lateral);
+  display: grid;
+  gap: var(--esp-xl);
+  align-items: center;
+}
+
+/* --- Coluna de texto ----------------------------------------------------- */
+
+.texto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--esp-m);
+}
+
+.titulo {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--esp-s);
+  font-size: var(--passo-6);
+  color: var(--cor-marrom);
+  line-height: 1;
+}
+
+/* "Conheça nossas" em Montserrat, "Tecnologias" em Antonio — o contraste
+   tipográfico dentro da mesma headline (DESIGN-SPEC §04). */
+.tituloLeve {
+  font-family: var(--fonte-texto);
+  font-size: 0.3em;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+  margin-bottom: 0.6em;
+}
+
+.tituloForte {
+  display: block;
+}
+
+.chamada {
+  max-width: 42ch;
+  color: var(--texto-suave);
+}
+
+/* --- Galeria ------------------------------------------------------------- */
+
+.galeria {
+  min-width: 0;
+}
+
+/* --- Mobile: o carrossel sangra até a borda da tela ---------------------- */
+
+@media (max-width: 61.99rem) {
+  .galeria {
+    margin-right: calc(var(--margem-lateral) * -1);
+  }
+
+  .titulo {
+    font-size: var(--passo-5);
+  }
+}
+
+/* --- Desktop ------------------------------------------------------------- */
+
+@media (min-width: 62rem) {
+  .interno {
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+    gap: var(--esp-3xl);
+  }
+}

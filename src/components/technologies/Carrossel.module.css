@@ -1,0 +1,147 @@
+/*
+ * A largura do card é a única medida que define quantos cards aparecem.
+ * Mobile: 1 card inteiro + parte do próximo.
+ * Desktop: 2 cards inteiros + o terceiro parcialmente visível.
+ */
+.carrossel {
+  --gap-card: var(--esp-m);
+  --largura-card: 74%;
+  position: relative;
+}
+
+.janela {
+  /* A janela sangra para fora do container e o card parcial é cortado pela
+     borda da tela, comunicando continuidade sem precisar de máscara. */
+  overflow: hidden;
+  padding-block: var(--esp-2xs);
+  touch-action: pan-y;
+}
+
+.faixa {
+  display: flex;
+  gap: var(--gap-card);
+  margin: 0;
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 var(--largura-card);
+  min-width: 0;
+}
+
+/* --- Controles ----------------------------------------------------------- */
+
+.controles {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-m);
+  margin-top: var(--esp-m);
+}
+
+.setas {
+  display: flex;
+  gap: var(--esp-2xs);
+}
+
+.seta {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--linha-forte);
+  border-radius: 50%;
+  color: var(--texto);
+  transition:
+    background-color var(--dur-rapida) var(--ease),
+    border-color var(--dur-rapida) var(--ease),
+    color var(--dur-rapida) var(--ease);
+}
+
+.seta:hover {
+  background-color: var(--cor-marrom);
+  border-color: var(--cor-marrom);
+  color: var(--texto-invertido);
+}
+
+.marcadores {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3xs);
+  margin: 0;
+  margin-right: auto;
+}
+
+/* Alvo de toque de 24px com um filete de 2px visível dentro dele. */
+.marcador {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+}
+
+.marcador::before {
+  content: '';
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--linha-forte);
+  transition:
+    width var(--dur-media) var(--ease),
+    background-color var(--dur-media) var(--ease);
+}
+
+.marcadorAtivo::before {
+  width: 22px;
+  background-color: var(--acento);
+}
+
+.contador {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3em;
+  font-family: var(--fonte-titulo);
+  font-size: var(--passo-0);
+  letter-spacing: 0.08em;
+  color: var(--texto-suave);
+}
+
+.contador strong {
+  font-weight: 400;
+  color: var(--cor-marrom);
+}
+
+.contador span {
+  color: var(--linha-forte);
+}
+
+/* --- Mobile: esconde os marcadores, o swipe é a navegação principal ------ */
+
+@media (max-width: 35.99rem) {
+  .carrossel {
+    --largura-card: 78%;
+    --gap-card: var(--esp-s);
+  }
+
+  .marcadores {
+    display: none;
+  }
+
+  .contador {
+    margin-left: auto;
+  }
+}
+
+/* --- Desktop: 2 cards + terceiro parcial --------------------------------- */
+
+@media (min-width: 62rem) {
+  .carrossel {
+    /* Dois cards e ~35% do terceiro, descontando os dois gaps. */
+    --largura-card: calc((100% - 2 * var(--gap-card)) / 2.35);
+  }
+
+  .janela {
+    /* Deixa o card parcial escapar para além da coluna, até a borda da tela. */
+    overflow: visible;
+    clip-path: inset(-2rem -100vw -2rem -1rem);
+  }
+}
