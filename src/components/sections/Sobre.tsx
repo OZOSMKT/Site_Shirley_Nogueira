@@ -10,9 +10,10 @@ import estilos from './Sobre.module.css';
 /**
  * Sobre a Dra. Shirley (DESIGN-SPEC §09).
  *
- * A relação fotografia + card sobreposto é preservada: o card das métricas
- * avança sobre a base da imagem no desktop e continua invadindo a foto no
- * mobile, em vez de virar um bloco empilhado solto.
+ * O card das métricas fica **ao lado** da fotografia, encostado na borda
+ * direita e avançando para fora dela — não abaixo. As três métricas se empilham
+ * na vertical, separadas por filetes. Esse é o arranjo aprovado pelo cliente e
+ * vale em todos os tamanhos de tela.
  *
  * O texto oficial e os números não foram alterados.
  */
@@ -33,15 +34,13 @@ export function Sobre() {
             />
           </div>
 
-          <div className={estilos.card}>
-            <ul className={estilos.metricas}>
-              {METRICAS.map((metrica) => (
-                <li key={metrica.legenda}>
-                  <Metrica {...metrica} />
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className={estilos.card}>
+            {METRICAS.map((metrica) => (
+              <li key={metrica.legenda} className={estilos.metrica}>
+                <Metrica {...metrica} />
+              </li>
+            ))}
+          </ul>
         </Revelar>
 
         <div className={estilos.texto}>

@@ -29,9 +29,9 @@ export const SOBRE = {
 
 /** DESIGN-SPEC §09 — métricas oficiais. */
 export const METRICAS = [
-  { valor: '20+', unidade: 'anos', legenda: 'de experiência' },
-  { valor: '36k+', unidade: 'pacientes', legenda: 'atendidos' },
-  { valor: '30+', unidade: 'palestras', legenda: 'ministradas' },
+  { valor: '20+', legenda: 'Anos de experiência' },
+  { valor: '36k+', legenda: 'Pacientes atendidos' },
+  { valor: '30+', legenda: 'Palestras' },
 ] as const;
 
 /** DESIGN-SPEC §10 */

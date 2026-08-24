@@ -12,22 +12,24 @@
   align-items: start;
 }
 
-/* --- Fotografia + card sobreposto ---------------------------------------- */
+/* --- Fotografia + card lateral -------------------------------------------
+   O card avança para fora da foto pela direita, então a `.midia` reserva essa
+   margem e a foto ocupa o restante. */
 
-/*
- * A fotografia original tem 377x538. Acima de ~430px de largura ela passaria a
- * ser ampliada além do seu tamanho nativo, o que degrada a imagem e desequilibra
- * a composição em tablets. O teto vale para todos os tamanhos de tela.
- */
 .midia {
   position: relative;
   width: 100%;
-  max-width: 430px;
+  max-width: 500px;
   margin-inline: auto;
-  /* Reserva o avanço do card para fora da moldura. */
-  padding-bottom: var(--esp-2xl);
+  padding-right: var(--avanco-card);
+  --avanco-card: clamp(2.5rem, 8vw, 4.5rem);
+  --largura-card: clamp(9rem, 28vw, 12.5rem);
 }
 
+/*
+ * A fotografia original tem 377x538. O teto de 430px impede que ela seja
+ * ampliada além do tamanho nativo, o que degradaria a imagem em tablets.
+ */
 .moldura {
   overflow: hidden;
   border-radius: var(--raio-l);
@@ -40,29 +42,49 @@
   object-fit: cover;
 }
 
+/*
+ * Card das métricas: encostado na borda direita da foto e transbordando para
+ * fora dela, centrado na vertical. O dourado aparece aqui como área, não como
+ * cor de texto — sobre ele o marrom institucional atinge 5,75:1.
+ */
 .card {
   position: absolute;
-  left: var(--esp-m);
-  right: var(--esp-m);
-  bottom: 0;
-  padding: var(--esp-m) var(--esp-l);
-  background-color: var(--cor-creme);
-  border: 1px solid var(--linha);
-  border-radius: var(--raio-l);
-  box-shadow: var(--sombra-card);
-}
-
-.metricas {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--esp-s);
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--largura-card);
   margin: 0;
+  padding: var(--esp-m) var(--esp-s);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--cor-dourado);
+  border-radius: var(--raio-l);
+  box-shadow: 0 14px 36px -22px rgba(60, 46, 35, 0.55);
+
+  --metrica-alinhamento: center;
+  --metrica-cor: var(--cor-marrom);
+  --metrica-cor-legenda: var(--cor-marrom);
+  --metrica-tamanho: var(--passo-3);
+  /* Sobre o dourado a legenda dispensa o rastreio largo: sem ele o texto
+     respira melhor na largura estreita do card. */
+  --metrica-rastreio-legenda: 0.02em;
 }
 
-/* Filetes finos separando as métricas, em vez de bordas de card. */
-.metricas > li + li {
-  padding-left: var(--esp-s);
-  border-left: 1px solid var(--linha);
+.metrica {
+  padding-block: var(--esp-s);
+}
+
+.metrica:first-child {
+  padding-top: var(--esp-2xs);
+}
+
+.metrica:last-child {
+  padding-bottom: var(--esp-2xs);
+}
+
+/* Filetes finos separando as métricas, como na referência aprovada. */
+.metrica + .metrica {
+  border-top: 1px solid rgba(60, 46, 35, 0.28);
 }
 
 /* --- Coluna de texto ----------------------------------------------------- */
@@ -104,23 +126,28 @@
   margin-top: var(--esp-2xs);
 }
 
-/* --- Mobile -------------------------------------------------------------- */
+/* --- Telas estreitas ------------------------------------------------------
+   O card continua ao lado da foto; o que muda é a proporção entre os dois. */
 
-@media (max-width: 47.99rem) {
+@media (max-width: 30rem) {
+  .midia {
+    /* Card mais estreito e avançando mais para fora: em tela pequena ele
+       precisa cobrir menos da fotografia para não engolir a figura. */
+    --avanco-card: 1.75rem;
+    --largura-card: 7rem;
+  }
+
   .card {
-    left: var(--esp-s);
-    right: var(--esp-s);
-    padding: var(--esp-s) var(--esp-m);
+    padding: var(--esp-s) var(--esp-2xs);
+    --metrica-tamanho: var(--passo-2);
   }
 
-  .metricas {
-    gap: var(--esp-2xs);
+  .metrica {
+    padding-block: var(--esp-xs);
   }
+}
 
-  .metricas > li + li {
-    padding-left: var(--esp-2xs);
-  }
-
+@media (max-width: 61.99rem) {
   .titulo {
     font-size: var(--passo-5);
   }
@@ -130,20 +157,12 @@
 
 @media (min-width: 62rem) {
   .interno {
-    grid-template-columns: minmax(0, 0.82fr) 1fr;
+    grid-template-columns: minmax(0, 0.9fr) 1fr;
     gap: var(--esp-3xl);
     align-items: center;
   }
 
   .midia {
     margin-inline: 0;
-    padding-bottom: var(--esp-3xl);
-  }
-
-  /* O card avança para fora da foto pela direita, criando a sobreposição. */
-  .card {
-    left: var(--esp-2xl);
-    right: calc(var(--esp-2xl) * -1);
-    max-width: 420px;
   }
 }
