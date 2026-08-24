@@ -1,0 +1,231 @@
+.cabecalho {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  transition:
+    background-color var(--dur-media) var(--ease),
+    border-color var(--dur-media) var(--ease),
+    backdrop-filter var(--dur-media) var(--ease);
+  border-bottom: 1px solid transparent;
+}
+
+/*
+ * Estado rolado: transparência controlada + blur discreto (DESIGN-SPEC §07).
+ *
+ * A opacidade é alta o bastante para o logo manter contraste quando o header
+ * passa sobre as seções de fundo marrom escuro — com valores mais baixos o
+ * creme se mistura ao marrom e a marca fica ilegível.
+ */
+.rolou {
+  background-color: rgba(245, 234, 221, 0.92);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  border-bottom-color: var(--linha);
+}
+
+.interno {
+  max-width: var(--largura-max);
+  margin-inline: auto;
+  padding: var(--esp-s) var(--margem-lateral);
+  display: flex;
+  align-items: center;
+  gap: var(--esp-l);
+  transition: padding var(--dur-media) var(--ease);
+}
+
+.rolou .interno {
+  padding-block: 0.7rem;
+}
+
+.marca {
+  display: flex;
+  flex: none;
+  margin-right: auto;
+}
+
+/* --- Navegação desktop --------------------------------------------------- */
+
+.navegacao {
+  display: none;
+}
+
+.lista {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-l);
+  margin: 0;
+}
+
+.link {
+  position: relative;
+  display: block;
+  padding-block: 0.35rem;
+  font-size: var(--passo--1);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--texto);
+  transition: color var(--dur-rapida) var(--ease);
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--acento);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-media) var(--ease);
+}
+
+.link:hover {
+  color: var(--cor-marrom-medio);
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+}
+
+.ctaDesktop {
+  display: none;
+  padding: 0.7rem 1.3rem;
+  border: 1px solid var(--linha-forte);
+  border-radius: var(--raio-m);
+  font-size: var(--passo--2);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-rapida) var(--ease),
+    border-color var(--dur-rapida) var(--ease),
+    color var(--dur-rapida) var(--ease);
+}
+
+.ctaDesktop:hover {
+  background-color: var(--cor-marrom);
+  border-color: var(--cor-marrom);
+  color: var(--texto-invertido);
+}
+
+/* --- Botão hamburger ----------------------------------------------------- */
+
+.botaoMenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  flex: none;
+}
+
+.hamburger {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 12px;
+}
+
+.hamburger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--cor-marrom);
+  transition: transform var(--dur-media) var(--ease);
+}
+
+.hamburger span:first-child {
+  top: 0;
+}
+
+.hamburger span:last-child {
+  bottom: 0;
+}
+
+.hamburgerAberto span:first-child {
+  transform: translateY(5.25px) rotate(45deg);
+}
+
+.hamburgerAberto span:last-child {
+  transform: translateY(-5.25px) rotate(-45deg);
+}
+
+/* --- Painel mobile ------------------------------------------------------- */
+
+.painel {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--esp-xl);
+  padding: var(--esp-4xl) var(--margem-lateral) var(--esp-2xl);
+  background-color: var(--fundo);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--dur-media) var(--ease),
+    transform var(--dur-media) var(--ease),
+    visibility var(--dur-media);
+}
+
+.painelAberto {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.listaMobile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-m);
+  margin: 0;
+}
+
+.linkMobile {
+  display: inline-block;
+  font-family: var(--fonte-titulo);
+  font-size: var(--passo-5);
+  line-height: 1;
+  color: var(--texto);
+  transition: color var(--dur-rapida) var(--ease);
+}
+
+.linkMobile:hover {
+  color: var(--cor-marrom-medio);
+}
+
+.ctaMobile {
+  align-self: flex-start;
+  padding: 0.95rem 1.6rem;
+  background-color: var(--cor-marrom);
+  color: var(--texto-invertido);
+  border-radius: var(--raio-m);
+  font-size: var(--passo--1);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* --- Desktop ------------------------------------------------------------- */
+
+@media (min-width: 62rem) {
+  .navegacao {
+    display: block;
+  }
+
+  .ctaDesktop {
+    display: block;
+  }
+
+  .botaoMenu,
+  .painel {
+    display: none;
+  }
+}
