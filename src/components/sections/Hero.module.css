@@ -1,18 +1,14 @@
+/*
+ * O Hero não usa bloco de cor atrás da fotografia. A profundidade vem de dois
+ * recursos discretos: um degradê vertical quase imperceptível no fundo da
+ * seção e um filete dourado deslocado atrás da imagem — o gesto editorial de
+ * moldura, que ancora a foto no espaço negativo sem disputar atenção com ela.
+ */
 .hero {
   position: relative;
   padding-block: calc(var(--esp-4xl) + 1rem) var(--secao-y);
   overflow: hidden;
-}
-
-/* Campo de cor quente atrás da coluna da fotografia: dá peso à imagem sem
-   transformá-la em background nem exigir sombra pesada. */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 0 auto;
-  width: min(46%, 640px);
-  background-color: var(--cor-branco);
-  z-index: 0;
+  background-image: linear-gradient(170deg, var(--cor-branco) 0%, var(--fundo) 46%, var(--fundo) 100%);
 }
 
 .interno {
@@ -47,8 +43,8 @@
   color: var(--cor-marrom);
 }
 
-/* A segunda linha recua e recebe o dourado: hierarquia dentro do próprio nome,
-   sem introduzir mais nenhum elemento gráfico. */
+/* A segunda linha recua e escurece: hierarquia dentro do próprio nome, sem
+   introduzir mais nenhum elemento gráfico. */
 .tituloLinha:last-child {
   margin-left: 0.08em;
   color: var(--cor-marrom-medio);
@@ -65,25 +61,41 @@
   margin-top: var(--esp-2xs);
 }
 
-/* --- Coluna da fotografia ------------------------------------------------ */
+/* --- Coluna da fotografia ------------------------------------------------
+   A fotografia original tem 399x511: acima de 460px de largura ela passaria a
+   ser ampliada além do tamanho nativo. A assinatura acompanha a moldura. */
 
-/* A fotografia original tem 399x511: acima de 460px de largura ela passaria a
-   ser ampliada além do tamanho nativo. O teto vale em todas as telas, e a
-   assinatura acompanha a moldura em vez de descolar dela. */
 .midia {
   display: flex;
   flex-direction: column;
-  gap: var(--esp-s);
+  gap: var(--esp-m);
   width: 100%;
   max-width: 460px;
   margin-inline: auto;
+}
+
+.palco {
+  position: relative;
+  /* Reserva o espaço que o filete ocupa ao transbordar da foto. */
+  padding: var(--deslocamento) var(--deslocamento) 0 0;
+  --deslocamento: clamp(0.75rem, 2.2vw, 1.5rem);
+}
+
+.filete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(100% - var(--deslocamento));
+  height: calc(100% - var(--deslocamento));
+  border: 1px solid var(--acento);
+  border-radius: var(--raio-l);
 }
 
 .moldura {
   position: relative;
   overflow: hidden;
   border-radius: var(--raio-l);
-  background-color: var(--cor-creme);
+  background-color: var(--cor-branco);
 }
 
 .foto {
@@ -113,15 +125,9 @@
   color: var(--texto-suave);
 }
 
-/* --- Mobile: o campo de cor vira uma faixa inferior ---------------------- */
+/* --- Mobile -------------------------------------------------------------- */
 
 @media (max-width: 61.99rem) {
-  .hero::before {
-    inset: auto 0 0 0;
-    width: 100%;
-    height: 42%;
-  }
-
   .titulo {
     font-size: var(--passo-6);
   }
@@ -133,13 +139,10 @@
   .interno {
     grid-template-columns: 1fr minmax(0, 0.86fr);
     gap: var(--esp-3xl);
-    min-height: min(84vh, 780px);
+    min-height: min(80vh, 740px);
   }
 
   .midia {
-    /* A fotografia sobe um pouco além do eixo central, criando a assimetria
-       editorial sem desequilibrar a composição. */
-    margin-top: calc(var(--esp-l) * -1);
     margin-inline: 0;
   }
 }

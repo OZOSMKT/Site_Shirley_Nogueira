@@ -34,17 +34,22 @@ export function Hero() {
         </div>
 
         <div className={estilos.midia}>
-          <div className={estilos.moldura}>
-            <Image
-              src="/images/doutora/hero-shirley.webp"
-              alt={HERO.alt}
-              width={399}
-              height={511}
-              sizes="(min-width: 62rem) 44vw, 92vw"
-              className={estilos.foto}
-              priority
-              quality={90}
-            />
+          {/* Filete deslocado atrás da fotografia: dá profundidade e ancora a
+              imagem no espaço negativo sem introduzir um bloco de cor. */}
+          <div className={estilos.palco}>
+            <span className={estilos.filete} aria-hidden="true" />
+            <div className={estilos.moldura}>
+              <Image
+                src="/images/doutora/hero-shirley.webp"
+                alt={HERO.alt}
+                width={399}
+                height={511}
+                sizes="(min-width: 62rem) 44vw, 92vw"
+                className={estilos.foto}
+                priority
+                quality={90}
+              />
+            </div>
           </div>
           <p className={estilos.assinatura}>
             <span className={estilos.assinaturaNome}>{MARCA.nome}</span>
