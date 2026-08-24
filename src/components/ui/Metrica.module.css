@@ -14,7 +14,7 @@
 }
 
 .legenda {
-  font-size: var(--passo--2);
+  font-size: var(--metrica-tamanho-legenda, var(--passo--2));
   line-height: 1.35;
   letter-spacing: var(--metrica-rastreio-legenda, 0.08em);
   color: var(--metrica-cor-legenda, var(--texto-suave));

@@ -16,14 +16,18 @@
    O card avança para fora da foto pela direita, então a `.midia` reserva essa
    margem e a foto ocupa o restante. */
 
+/* O teto de 480px, descontado o avanço do card, mantém a fotografia perto dos
+   377px nativos — acima disso ela começaria a ser ampliada e a perder nitidez. */
 .midia {
   position: relative;
   width: 100%;
-  max-width: 500px;
+  max-width: 480px;
   margin-inline: auto;
   padding-right: var(--avanco-card);
-  --avanco-card: clamp(2.5rem, 8vw, 4.5rem);
-  --largura-card: clamp(9rem, 28vw, 12.5rem);
+  /* O card fica em torno de um terço da largura da fotografia e transborda
+     cerca de metade da própria largura para fora dela. */
+  --avanco-card: clamp(2rem, 7vw, 5rem);
+  --largura-card: clamp(8rem, 23vw, 10.5rem);
 }
 
 /*
@@ -54,7 +58,7 @@
   transform: translateY(-50%);
   width: var(--largura-card);
   margin: 0;
-  padding: var(--esp-m) var(--esp-s);
+  padding: var(--esp-s) var(--esp-xs);
   display: flex;
   flex-direction: column;
   background-color: var(--cor-dourado);
@@ -64,22 +68,23 @@
   --metrica-alinhamento: center;
   --metrica-cor: var(--cor-marrom);
   --metrica-cor-legenda: var(--cor-marrom);
-  --metrica-tamanho: var(--passo-3);
-  /* Sobre o dourado a legenda dispensa o rastreio largo: sem ele o texto
-     respira melhor na largura estreita do card. */
-  --metrica-rastreio-legenda: 0.02em;
+  --metrica-tamanho: var(--passo-2);
+  /* Legenda menor e sem rastreio largo: é o que permite cada uma caber em uma
+     linha, com folga até a borda, na largura estreita do card. */
+  --metrica-tamanho-legenda: 0.69rem;
+  --metrica-rastreio-legenda: 0.01em;
 }
 
 .metrica {
-  padding-block: var(--esp-s);
+  padding-block: var(--esp-xs);
 }
 
 .metrica:first-child {
-  padding-top: var(--esp-2xs);
+  padding-top: var(--esp-3xs);
 }
 
 .metrica:last-child {
-  padding-bottom: var(--esp-2xs);
+  padding-bottom: var(--esp-3xs);
 }
 
 /* Filetes finos separando as métricas, como na referência aprovada. */
@@ -138,12 +143,12 @@
   }
 
   .card {
-    padding: var(--esp-s) var(--esp-2xs);
-    --metrica-tamanho: var(--passo-2);
+    padding: var(--esp-xs) var(--esp-2xs);
+    --metrica-tamanho: var(--passo-1);
   }
 
   .metrica {
-    padding-block: var(--esp-xs);
+    padding-block: var(--esp-2xs);
   }
 }
 
