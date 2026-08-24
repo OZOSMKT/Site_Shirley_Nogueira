@@ -8,6 +8,13 @@ import estilos from './Carrossel.module.css';
 const TOTAL = TECNOLOGIAS.length;
 
 /**
+ * Avanço automático desligado por decisão do cliente: o carrossel só se move
+ * por ação do visitante. Religar é trocar esta constante para `true` — o
+ * intervalo e a pausa em interação continuam implementados em `useCarrossel`.
+ */
+const AUTOPLAY = false;
+
+/**
  * Faixa completa: clones da cauda + slides reais + clones da cabeça.
  * Os clones existem apenas para dar continuidade visual ao loop e são
  * removidos da árvore de acessibilidade.
@@ -49,7 +56,7 @@ export function Carrossel() {
     aoPressionar,
     aoMover,
     aoSoltar,
-  } = useCarrossel({ total: TOTAL });
+  } = useCarrossel({ total: TOTAL, autoplay: AUTOPLAY });
 
   const aoTeclar = (evento: React.KeyboardEvent) => {
     if (evento.key === 'ArrowRight') {
@@ -67,10 +74,16 @@ export function Carrossel() {
       role="group"
       aria-roledescription="carrossel"
       aria-label="Tecnologias do Instituto Shirley Nogueira"
-      onPointerEnter={pausar}
-      onPointerLeave={retomar}
-      onFocusCapture={pausar}
-      onBlurCapture={retomar}
+      /* Os manipuladores de pausa só existem quando há autoplay para pausar —
+         sem eles o hover não dispara re-render à toa. */
+      {...(AUTOPLAY
+        ? {
+            onPointerEnter: pausar,
+            onPointerLeave: retomar,
+            onFocusCapture: pausar,
+            onBlurCapture: retomar,
+          }
+        : {})}
       onKeyDown={aoTeclar}
     >
       <div

@@ -32,6 +32,11 @@ espaço negativo, não da quantidade de recursos visuais.
 O carrossel, as animações e as interações dos cards são implementados com as APIs
 da plataforma — sem biblioteca de carrossel, de animação ou de ícones.
 
+> **Nota sobre o carrossel.** O `DESIGN-SPEC.md` §12 lista autoplay entre os
+> comportamentos obrigatórios, mas o cliente pediu que o avanço automático fosse
+> removido. O carrossel só se move por ação do visitante. Ver *Manutenção* para
+> como religar.
+
 ---
 
 ## Estrutura
@@ -176,6 +181,13 @@ Trocar a constante `AGENDAMENTO_HREF` em `src/data/contato.ts` por
 `https://wa.me/55...`. Todos os CTAs de agendamento passam a apontar para lá;
 nenhum componente precisa ser alterado. O mesmo vale para `SAIBA_MAIS_HREF`.
 
+### Religar o avanço automático do carrossel
+Trocar `AUTOPLAY` para `true` em
+`src/components/technologies/Carrossel.tsx`. Toda a mecânica continua
+implementada em `src/hooks/useCarrossel.ts` — intervalo, pausa em hover, foco,
+toque, aba oculta e `prefers-reduced-motion`. Os manipuladores de pausa voltam
+a ser anexados automaticamente.
+
 ### Alterar uma tecnologia
 `src/data/tecnologias.ts`. Cada item traz:
 
@@ -214,7 +226,8 @@ A ordem e a quantidade das sete seções são definidas pelo `DESIGN-SPEC.md` §
   aparece também por foco de teclado e por toque;
 - contraste verificado em todos os textos — o dourado é usado como acento e sobre
   fundo escuro, nunca como cor de texto sobre fundo claro;
-- `prefers-reduced-motion` desliga transições, revelações e o autoplay.
+- `prefers-reduced-motion` desliga transições e revelações (e o autoplay, caso
+  ele volte a ser ligado).
 
 ---
 

@@ -82,7 +82,14 @@ export function Cabecalho() {
     <header className={`${estilos.cabecalho} ${rolou ? estilos.rolou : ''}`}>
       <div className={estilos.interno}>
         <a href="#inicio" className={estilos.marca} aria-label="Instituto Shirley Nogueira, ir para o início">
-          <Logo forma="horizontal" cor="dourada" altura={30} priority decorativo />
+          <Logo
+            forma="horizontal"
+            cor="dourada"
+            altura={42}
+            className={estilos.logo}
+            priority
+            decorativo
+          />
         </a>
 
         <nav className={estilos.navegacao} aria-label="Navegação principal">

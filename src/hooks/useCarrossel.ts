@@ -12,10 +12,18 @@ const LIMIAR_ARRASTO = 0.22;
 type Opcoes = {
   /** Quantidade de slides reais. */
   total: number;
+  /**
+   * Avanço automático. Desligado por decisão do cliente — o carrossel só se
+   * move por ação do visitante (setas, marcadores, teclado ou swipe).
+   *
+   * Para religar, basta passar `autoplay` na chamada do hook: toda a mecânica
+   * de intervalo e de pausa em interação continua implementada aqui.
+   */
+  autoplay?: boolean;
 };
 
 /**
- * Carrossel com loop infinito, autoplay e arrasto.
+ * Carrossel com loop infinito, autoplay opcional e arrasto.
  *
  * O loop usa clones nas duas pontas: a faixa contém
  * `[3 últimos] [7 reais] [3 primeiros]` e o índice caminha por essa lista.
@@ -27,7 +35,7 @@ type Opcoes = {
  * funciona com qualquer largura de card ou gap definido no CSS, incluindo as
  * mudanças de breakpoint, sem duplicar esses valores em JavaScript.
  */
-export function useCarrossel({ total }: Opcoes) {
+export function useCarrossel({ total, autoplay = false }: Opcoes) {
   const faixaRef = useRef<HTMLUListElement>(null);
 
   // O índice caminha sobre a lista com clones; o primeiro slide real é CLONES.
@@ -126,14 +134,14 @@ export function useCarrossel({ total }: Opcoes) {
 
   // Autoplay. Pausa em interação, foco, aba oculta e movimento reduzido.
   useEffect(() => {
-    if (pausado || semMovimento) return;
+    if (!autoplay || pausado || semMovimento) return;
 
     const id = setInterval(() => {
       if (document.visibilityState === 'visible') avancar();
     }, INTERVALO_AUTOPLAY);
 
     return () => clearInterval(id);
-  }, [pausado, semMovimento, avancar]);
+  }, [autoplay, pausado, semMovimento, avancar]);
 
   // --- Arrasto / swipe ----------------------------------------------------
 

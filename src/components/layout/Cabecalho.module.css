@@ -43,6 +43,28 @@
   margin-right: auto;
 }
 
+/*
+ * A marca é servida na altura de desktop e reduzida por CSS em telas
+ * estreitas — os atributos de largura e altura da imagem continuam reservando
+ * o espaço correto, então não há deslocamento de layout no carregamento.
+ */
+.logo {
+  height: 32px;
+  width: auto;
+}
+
+@media (min-width: 30rem) {
+  .logo {
+    height: 36px;
+  }
+}
+
+@media (min-width: 62rem) {
+  .logo {
+    height: 42px;
+  }
+}
+
 /* --- Navegação desktop --------------------------------------------------- */
 
 .navegacao {
