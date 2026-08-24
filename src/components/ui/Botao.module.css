@@ -1,0 +1,74 @@
+.botao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-xs);
+  padding: 0.95rem 1.6rem;
+  border: 1px solid transparent;
+  border-radius: var(--raio-m);
+  font-size: var(--passo--1);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-rapida) var(--ease),
+    border-color var(--dur-rapida) var(--ease),
+    color var(--dur-rapida) var(--ease);
+}
+
+.rotulo {
+  display: block;
+  padding-top: 0.1em;
+}
+
+.seta {
+  display: flex;
+  transition: transform var(--dur-media) var(--ease);
+}
+
+.botao:hover .seta {
+  transform: translateX(4px);
+}
+
+/* --- Variantes ---------------------------------------------------------- */
+
+.solido {
+  background-color: var(--cor-marrom);
+  color: var(--texto-invertido);
+}
+
+.solido:hover {
+  background-color: var(--cor-marrom-medio);
+}
+
+.contorno {
+  border-color: var(--linha-forte);
+  color: var(--texto);
+}
+
+.contorno:hover {
+  border-color: var(--cor-marrom);
+  background-color: rgba(60, 46, 35, 0.05);
+}
+
+.claro {
+  background-color: var(--cor-creme);
+  color: var(--cor-marrom);
+}
+
+.claro:hover {
+  background-color: var(--cor-branco);
+}
+
+.texto {
+  padding: 0.5rem 0;
+  color: var(--texto);
+  border-bottom: 1px solid var(--linha-forte);
+  border-radius: 0;
+}
+
+.texto:hover {
+  color: var(--cor-marrom-medio);
+  border-bottom-color: var(--acento);
+}

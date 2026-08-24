@@ -1,0 +1,23 @@
+.rotulo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-xs);
+  font-size: var(--passo--2);
+  font-weight: 500;
+  letter-spacing: var(--rastreio-label);
+  text-transform: uppercase;
+  color: var(--texto-suave);
+  line-height: 1;
+}
+
+.rotulo::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background-color: var(--acento);
+  flex: none;
+}
+
+.claro {
+  color: var(--texto-invertido-suave);
+}

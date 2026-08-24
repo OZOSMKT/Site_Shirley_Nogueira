@@ -1,0 +1,21 @@
+.metrica {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-3xs);
+}
+
+.valor {
+  font-family: var(--fonte-titulo);
+  font-size: var(--passo-4);
+  line-height: 0.9;
+  color: var(--cor-marrom);
+  letter-spacing: -0.02em;
+}
+
+.legenda {
+  font-size: var(--passo--2);
+  line-height: 1.45;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+}

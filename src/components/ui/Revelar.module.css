@@ -1,0 +1,22 @@
+.revelar {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--dur-lenta) var(--ease),
+    transform var(--dur-lenta) var(--ease);
+}
+
+.visivel {
+  opacity: 1;
+  transform: none;
+}
+
+/* Sem movimento: o conteúdo já nasce no lugar, sem depender do observador
+   nem da transição. */
+@media (prefers-reduced-motion: reduce) {
+  .revelar {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
