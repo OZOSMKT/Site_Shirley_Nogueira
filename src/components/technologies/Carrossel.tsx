@@ -96,12 +96,7 @@ export function Carrossel() {
               aria-hidden={item.clone || undefined}
               inert={item.clone}
             >
-              <CardTecnologia
-                tecnologia={item.tecnologia}
-                numero={item.numero}
-                clone={item.clone}
-                prioridade={!item.clone && item.numero <= 2}
-              />
+              <CardTecnologia tecnologia={item.tecnologia} numero={item.numero} clone={item.clone} />
             </li>
           ))}
         </ul>

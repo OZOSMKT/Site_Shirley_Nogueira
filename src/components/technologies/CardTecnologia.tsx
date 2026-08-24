@@ -11,8 +11,6 @@ type Props = {
   numero: number;
   /** Clones do carrossel não recebem foco nem são lidos por leitor de tela. */
   clone?: boolean;
-  /** As duas primeiras imagens reais carregam sem lazy — são as visíveis. */
-  prioridade?: boolean;
 };
 
 /**
@@ -31,7 +29,7 @@ type Props = {
  * O texto revelado permanece sempre no DOM — apenas contido visualmente — então
  * leitores de tela o alcançam independentemente do estado visual.
  */
-export function CardTecnologia({ tecnologia, numero, clone = false, prioridade = false }: Props) {
+export function CardTecnologia({ tecnologia, numero, clone = false }: Props) {
   const [sobre, setSobre] = useState(false);
   const [focado, setFocado] = useState(false);
   const [travado, setTravado] = useState(false);
@@ -92,7 +90,8 @@ export function CardTecnologia({ tecnologia, numero, clone = false, prioridade =
           style={{
             transform: `translateY(${tecnologia.deslocamentoY}%) scale(${tecnologia.escala})`,
           }}
-          priority={prioridade}
+          /* Sem `priority`: o carrossel fica bem abaixo da dobra e pré-carregar
+             estas imagens competiria com o LCP, que é a fotografia do Hero. */
           quality={88}
         />
       </div>
