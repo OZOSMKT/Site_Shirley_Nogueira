@@ -54,6 +54,8 @@
   height: auto;
   border-radius: var(--raio-l);
   object-fit: cover;
+  transform: scale(1.0);
+  transform-origin: center center;
 }
 
 /* --- Corpo --------------------------------------------------------------- */

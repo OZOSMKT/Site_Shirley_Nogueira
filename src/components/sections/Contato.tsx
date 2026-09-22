@@ -122,7 +122,7 @@ export function Contato() {
           */}
           <div className={estilos.moldura}>
             <Image
-              src="/images/doutora/hero-shirley.webp"
+              src="/images/doutora/contato-shirley.webp"
               alt={CONTATO.alt}
               width={399}
               height={511}

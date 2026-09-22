@@ -55,10 +55,11 @@ const LOGO_VARIANTS = [
 ];
 
 const PHOTOS = [
-  { from: ['doutora', 'hero', 'IMG_5625 1.png'], to: 'images/doutora/hero-shirley' },
-  { from: ['doutora', 'sobre', 'IMG_7591 1.png'], to: 'images/doutora/sobre-shirley' },
-  { from: ['doutora', 'precisão', 'IMG_7604 1.png'], to: 'images/doutora/precisao-shirley' },
-  { from: ['doutora', 'excelência', 'IMG_7575 2.png'], to: 'images/doutora/excelencia-shirley' },
+  { from: ['doutora', 'hero', 'Foto Hero 1.JPG'], to: 'images/doutora/hero-shirley' },
+  { from: ['doutora', 'sobre', 'Foto Sobre 1.JPG'], to: 'images/doutora/sobre-shirley' },
+  { from: ['doutora', 'precisão', 'Foto precisão.JPG'], to: 'images/doutora/precisao-shirley' },
+  { from: ['doutora', 'excelência', 'Foto Excelência 1.JPG'], to: 'images/doutora/excelencia-shirley' },
+  { from: ['doutora', 'contato', 'Foto contato.JPG'], to: 'images/doutora/contato-shirley'},
 ];
 
 const EQUIPMENT = [
